@@ -1,3 +1,9 @@
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.tree.ParseTree;
+
 /***
  * Excerpted from "The Definitive ANTLR 4 Reference",
  * published by The Pragmatic Bookshelf.
@@ -6,23 +12,21 @@
  * We make no guarantees that this code is fit for any purpose.
  * Visit http://www.pragmaticprogrammer.com/titles/tpantlr2 for more book information.
  ***/
-import java.io.FileInputStream;
-import java.io.InputStream;
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.ParseTree;
 
 public class Calc {
 
   public static void main(String[] args) throws Exception {
     String inputFile = null;
     if (args.length > 0) inputFile = args[0];
-    InputStream is = System.in;
+           InputStream is = System.in;
     if (inputFile != null) is = new FileInputStream(inputFile);
-    CharStream input = CharStreams.fromStream(is);
+           CharStream input = CharStreams.fromStream(is);
+
+
     LabeledExprLexer lexer = new LabeledExprLexer(input);
     CommonTokenStream tokens = new CommonTokenStream(lexer);
     LabeledExprParser parser = new LabeledExprParser(tokens);
-    ParseTree tree = parser.prog(); // parse
+    ParseTree tree = parser.prog(); 
 
     EvalVisitor eval = new EvalVisitor();
     eval.visit(tree);

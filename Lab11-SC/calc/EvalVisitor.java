@@ -1,3 +1,7 @@
+import java.util.HashMap;
+import java.util.Map;
+
+
 /***
  * Excerpted from "The Definitive ANTLR 4 Reference",
  * published by The Pragmatic Bookshelf.
@@ -6,12 +10,10 @@
  * We make no guarantees that this code is fit for any purpose. 
  * Visit http://www.pragmaticprogrammer.com/titles/tpantlr2 for more book information.
 ***/
-import java.util.HashMap;
-import java.util.Map;
 
 public class EvalVisitor extends LabeledExprBaseVisitor<Integer> {
-    /** "memory" for our calculator; variable/value pairs go here */
-    Map<String, Integer> memory = new HashMap<String, Integer>();
+   
+    Map<String, Integer> memory = new HashMap<String, Integer>(); /** "memory" for our calculator; variable/value pairs go here */
 
     /** ID '=' expr NEWLINE */
     @Override
@@ -22,6 +24,8 @@ public class EvalVisitor extends LabeledExprBaseVisitor<Integer> {
         return value;
     }
 
+
+
     /** expr NEWLINE */
     @Override
     public Integer visitPrintExpr(LabeledExprParser.PrintExprContext ctx) {
@@ -30,11 +34,15 @@ public class EvalVisitor extends LabeledExprBaseVisitor<Integer> {
         return 0;                          // return dummy value
     }
 
+
+
     /** INT */
     @Override
     public Integer visitInt(LabeledExprParser.IntContext ctx) {
         return Integer.valueOf(ctx.INT().getText());
     }
+
+
 
     /** ID */
     @Override
@@ -43,6 +51,8 @@ public class EvalVisitor extends LabeledExprBaseVisitor<Integer> {
         if ( memory.containsKey(id) ) return memory.get(id);
         return 0;
     }
+
+
 
     /** expr op=('*'|'/') expr */
     @Override
@@ -53,6 +63,8 @@ public class EvalVisitor extends LabeledExprBaseVisitor<Integer> {
         return left / right; // must be DIV
     }
 
+
+
     /** expr op=('+'|'-') expr */
     @Override
     public Integer visitAddSub(LabeledExprParser.AddSubContext ctx) {
@@ -61,6 +73,8 @@ public class EvalVisitor extends LabeledExprBaseVisitor<Integer> {
         if ( ctx.op.getType() == LabeledExprParser.ADD ) return left + right;
         return left - right; // must be SUB
     }
+
+
 
     /** '(' expr ')' */
     @Override
